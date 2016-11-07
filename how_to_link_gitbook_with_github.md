@@ -7,6 +7,7 @@
  保存后就会在github的repo中多出一个同名文件，文件内容就是gitbook文件的内容。
  如果顺序反了，先写book，再建repo，虽然可以按帮助的提示授权，就会出问题，我是把book和repo全都删除了才关联好的。
  
- 如果文件不是在gitbook中创建的，那么它不会出现在table of contents中。
+ 如果文件不是在gitbook中创建的，那么它虽然出现在files tree中，但不会出现在table of contents中，也不会出现在最终的电子书(如pdf)中。
  
- 编辑器还是gitbook的功能更强，所以应该在这里编辑。
+  
+ 编辑器还是gitbook的功能更强，所以应该在gitbook里编辑。需要当心，如果同时在github和gitbook中编辑一个文件，很可能覆盖其中一个作的修改。
