@@ -18,7 +18,8 @@ Q-------
 现假设我们把各行王后的棋子位置存入一个数组，就可以输出图形了。
 
 
-```#include <iostream>
+```
+#include <iostream>
 #include <cmath>
 
 void printq(int s[],int n)
