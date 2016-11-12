@@ -1,6 +1,14 @@
 **计算2的非负整数次幂的次数的方法比较**  
 在输出N王后的图形问题中，我遇到这个问题。如最靠右的位置是1，然后是2、4、8...，怎么把它变成0、1、2、3...呢？大致有如下几种办法：
-1. 利用log(2,N)=log(e,N)/log(e,2)公式求2个自然对数的商。 
+1. 利用log(2,N)=log(e,N)/log(e,2)公式求2个自然对数的商。需要用round。 
+2. 查表法，因为能确定输入就是那几个数，所以全列举出来查表，用switch case语句实现。
+3. 循环比较法，其逻辑和查表法一样，用for语句实现。
+4. 循环移位法，依次将输入右移，直到结果为0时结束循环。返回循环次数。
+5. 利用C++11新引入的log2函数,不用round能返回正确值。速度比除以log(2)的算法快。
+6. 利用C++的map，相当于二叉树。
+7. 利用C++11的unordered_map，相当于散列表。  
+
+用2个不同值分布的测试用例来分别测试。代码如下：   
 
 
 ```
@@ -78,9 +86,7 @@ for(int i=0;i<d_size;i++)
  sum+=(*f)(data[i]);    
 }
 printf("%s\t%lld,%dms\n",msg,sum,clock()-t);
-
 }
-
 
 int main()
 {
@@ -93,7 +99,7 @@ for(int i=0;i<20;i++)
  umap[1<<i]=i;
 }
 
-int b[1<<18]={1};
+int b[1<<18]={1}; //更大的数组会溢出
 
 for(int j=0;j<18;j++)
 for(int i=1<<j;i<1<<(j+1);i++)
@@ -123,10 +129,31 @@ test(log2_while,d,size,range,"use while");
 test(log2_map,d,size,range,"use map");
 
 test(log2_umap,d,size,range,"use hash map");
-
-
 }
 return 0;
 }
 ```
+测试结果如下：
+```
+D:\>c++ power2a.cpp -O2
 
+D:\>a
+test case 0
+use divide log(2)       199229440,2090ms
+use switch      199229440,124ms
+use for 199229440,406ms
+use std::log2   199229440,1123ms
+use while       199229440,218ms
+use map 199229440,219ms
+use hash map    199229440,405ms
+test case 1
+use divide log(2)       335544480,2091ms
+use switch      335544480,93ms
+use for 335544480,561ms
+use std::log2   335544480,1061ms
+use while       335544480,297ms
+use map 335544480,218ms
+use hash map    335544480,343ms
+
+```
+结论是：运行速度 查表法 > map或while > hash_map > for > log2> log对数除法。
